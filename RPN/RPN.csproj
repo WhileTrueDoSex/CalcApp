@@ -54,6 +54,7 @@
     <Compile Include="Operators\Degree.cs" />
     <Compile Include="Operators\Division.cs" />
     <Compile Include="Operators\Multiplication.cs" />
+    <Compile Include="Operators\SquareRoot.cs" />
     <Compile Include="Operators\Subtraction.cs" />
     <Compile Include="Operators\UnaryMinus.cs" />
     <Compile Include="PostfixCalculate.cs" />

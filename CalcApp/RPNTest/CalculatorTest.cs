@@ -20,7 +20,7 @@ namespace RPNTest
             var expr5 = _calc.Calculate("-1");
             var expr6 = _calc.Calculate("2+2*2");
             var expr7 = _calc.Calculate("(2+2)*2");
-
+            var expr8 = _calc.Calculate("(2+2)*2*#4");
 
             Assert.AreEqual(expr1, 10);     
             Assert.AreEqual(expr2, 2.5m);
@@ -29,6 +29,7 @@ namespace RPNTest
             Assert.AreEqual(expr5, -1);
             Assert.AreEqual(expr6, 6);
             Assert.AreEqual(expr7, 8);
+            Assert.AreEqual(expr8, 16);
         }
     }
 }

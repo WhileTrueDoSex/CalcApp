@@ -16,7 +16,8 @@ namespace RPN
                 new Division(),
                 new Multiplication(),
                 new Subtraction(),
-                new UnaryMinus()
+                new UnaryMinus(),
+                new SquareRoot()
             };
         }
 

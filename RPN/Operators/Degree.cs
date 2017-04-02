@@ -5,7 +5,7 @@ namespace RPN.Operators
         public char Symbol => '^';
         public bool IsUnary => false;
         public bool IsBinary => true;
-        public int Precedence => 2;
+        public int Precedence => 3;
         public Associativity Associativity => Associativity.Right;
 
         public decimal Calculate(decimal leftOperand, decimal rightOperand)
