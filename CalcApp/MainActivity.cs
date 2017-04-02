@@ -1,6 +1,8 @@
-﻿using Android.App;
+﻿using System;
+using Android.App;
 using Android.Widget;
 using Android.OS;
+using RPN;
 
 namespace CalcApp
 {
@@ -13,6 +15,10 @@ namespace CalcApp
 
             // Set our view from the "main" layout resource
             // SetContentView (Resource.Layout.Main);
+
+            var calc = new Calculator();
+            var res = calc.Calculate("1+2");
+            Console.WriteLine(res);
         }
     }
 }

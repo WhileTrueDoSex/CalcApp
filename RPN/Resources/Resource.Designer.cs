@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("CalcApp.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("RPN.Resource", IsApplication=false)]
 
-namespace CalcApp
+namespace RPN
 {
 	
 	
@@ -22,12 +22,6 @@ namespace CalcApp
 		static Resource()
 		{
 			global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-		}
-		
-		public static void UpdateIdValues()
-		{
-			global::RPN.Resource.String.ApplicationName = global::CalcApp.Resource.String.ApplicationName;
-			global::RPN.Resource.String.Hello = global::CalcApp.Resource.String.Hello;
 		}
 		
 		public partial class Attribute
@@ -43,46 +37,14 @@ namespace CalcApp
 			}
 		}
 		
-		public partial class Drawable
-		{
-			
-			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
-			
-			static Drawable()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private Drawable()
-			{
-			}
-		}
-		
-		public partial class Layout
-		{
-			
-			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
-			
-			static Layout()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private Layout()
-			{
-			}
-		}
-		
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int ApplicationName = 2130968577;
+			// aapt resource value: 0x7f020001
+			public static int ApplicationName = 2130837505;
 			
-			// aapt resource value: 0x7f040000
-			public const int Hello = 2130968576;
+			// aapt resource value: 0x7f020000
+			public static int Hello = 2130837504;
 			
 			static String()
 			{
