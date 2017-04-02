@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalcApp", "CalcApp.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPN", "..\RPN\RPN.csproj", "{3D333811-BBFB-4513-BF3A-D534492C10C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPNTest", "RPNTest\RPNTest.csproj", "{8AE4FD60-3826-48B7-8212-125A82AD922C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{3D333811-BBFB-4513-BF3A-D534492C10C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D333811-BBFB-4513-BF3A-D534492C10C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D333811-BBFB-4513-BF3A-D534492C10C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AE4FD60-3826-48B7-8212-125A82AD922C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AE4FD60-3826-48B7-8212-125A82AD922C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AE4FD60-3826-48B7-8212-125A82AD922C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AE4FD60-3826-48B7-8212-125A82AD922C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

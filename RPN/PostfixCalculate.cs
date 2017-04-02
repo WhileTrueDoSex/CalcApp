@@ -39,9 +39,9 @@ namespace RPN
                     var x = _stack.Pop();
                     foreach (var @operator in _operators)
                     {
-                        var op = (IUnaryOperator) @operator;
-                        if (op.Symbol == entry[0])
+                        if (@operator.Symbol == entry[0])
                         {
+                            var op = (IUnaryOperator)@operator;
                             _stack.Push(op.Calculate(x));
                             break;
                         }
@@ -56,10 +56,10 @@ namespace RPN
                     var leftOperand = _stack.Pop();
                     foreach (var @operator in _operators)
                     {
-                        var op = (IBinaryOperator)@operator;
-                        if (op.Symbol == entry[0])
+                        if (@operator.Symbol == entry[0])
                         {
-                            _stack.Push(op.Calculate(rightOperand, leftOperand));
+                            var op = (IBinaryOperator)@operator;
+                            _stack.Push(op.Calculate(leftOperand, rightOperand));
                             break;
                         }
                     }

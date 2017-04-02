@@ -8,8 +8,7 @@ namespace RPN
 
         public Calculator()
         {
-            var tokenizer = new Tokenizer(CalcBuilder.Operators);
-            _infixToPostfix = new InfixToPostfix(tokenizer);
+            _infixToPostfix = new InfixToPostfix(new Tokenizer(CalcBuilder.Operators));
             _postfixCalculate = new PostfixCalculate(CalcBuilder.Operators);
         }
 
