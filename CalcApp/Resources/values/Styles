@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+  <style name="Theme.Light" parent ="Theme.AppCompat.Light.NoActionBar">
+    <item name="panel_top">@color/panel_top_light</item>
+    <item name="panel_bot">@color/panel_bot_light</item>
+    <item name="backspace">@mipmap/backspace_icon</item>
+  </style>
+
+  <style name="MainTheme" parent="Theme.Light">
+    <item name="colorPrimary">@color/blue</item>
+    <item name="colorPrimaryDark">@color/blue_dark</item>
+  </style>
+</resources>

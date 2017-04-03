@@ -57,7 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\RPN\RPN.csproj">
-      <Project>{3D333811-BBFB-4513-BF3A-D534492C10C3}</Project>
+      <Project>{3d333811-bbfb-4513-bf3a-d534492c10c3}</Project>
       <Name>RPN</Name>
     </ProjectReference>
   </ItemGroup>

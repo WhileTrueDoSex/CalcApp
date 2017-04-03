@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="blue">#03a9f4</color>
+  <color name="blue_dark">#0288d1</color>
+
+  <color name="panel_top_light">#fafafa</color>
+  <color name="panel_top_dark">#303030</color>
+
+  <color name="panel_bot_light">#eeeeee</color>
+  <color name="panel_bot_dark">#424242</color>
+</resources>
