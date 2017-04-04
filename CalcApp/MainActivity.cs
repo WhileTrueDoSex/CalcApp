@@ -5,10 +5,10 @@ using Android.Animation;
 using Android.App;
 using Android.Widget;
 using Android.OS;
-using Android.Support.Transitions;
 using Android.Views;
 using Android.Views.Animations;
 using Java.Lang;
+using static System.Math;
 using RPN;
 
 namespace CalcApp
@@ -22,6 +22,7 @@ namespace CalcApp
         private string _expr;
         private Calculator _calc;
         private ValueAnimator _valueAnimator;
+        private LinearLayout _displayOverlay;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -33,6 +34,7 @@ namespace CalcApp
             _hsv = FindViewById<HorizontalScrollView>(Resource.Id.display_hsv);
             _primaryDisplay = FindViewById<TextView>(Resource.Id.display_primary);
             _secondaryDisplay = FindViewById<TextView>(Resource.Id.display_secondary);
+            _displayOverlay = FindViewById<LinearLayout>(Resource.Id.display_overlay);
 
             var del = FindViewById<LinearLayout>(Resource.Id.button_delete);
             var eq = FindViewById<TextView>(Resource.Id.button_equals);
@@ -40,6 +42,35 @@ namespace CalcApp
             _hsv.ViewTreeObserver.GlobalLayout += (sender, args) =>
             {
                 _hsv.FullScroll(FocusSearchDirection.Right);
+            };
+
+            del.LongClick += (sender, args) =>
+            {
+                if (_primaryDisplay.Text.Length != 0)
+                {
+                    var circle = ViewAnimationUtils.CreateCircularReveal(
+                        _displayOverlay,
+                        _displayOverlay.MeasuredWidth / 2,
+                        _displayOverlay.MeasuredHeight,
+                         0,
+                        (int)Hypot(_displayOverlay.Width, _displayOverlay.Height));
+
+                    circle.SetDuration(300);
+
+                    circle.AnimationEnd += (o, eventArgs) =>
+                    {
+                        _primaryDisplay.Text = string.Empty;
+                        _secondaryDisplay.Text = string.Empty;
+                    };
+
+                    var fade = ObjectAnimator.OfFloat(_displayOverlay, "alpha", 0f);
+                    fade.SetInterpolator(new DecelerateInterpolator());
+                    fade.SetDuration(200);
+                    var animatorSet = new AnimatorSet();
+                    animatorSet.PlaySequentially(circle, fade);
+                    _displayOverlay.Alpha = 1;
+                    animatorSet.Start();
+                }
             };
 
             eq.Click += (sender, args) =>
@@ -50,11 +81,11 @@ namespace CalcApp
                     _primaryDisplay.Alpha = 1;
                 })).Start();
 
-                float startSize = 34; 
+                float startSize = 34;
                 float endSize = 70;
 
                 _valueAnimator = ValueAnimator.OfFloat(startSize, endSize);
-                _valueAnimator.SetInterpolator(new LinearInterpolator());
+                _valueAnimator.SetInterpolator(new DecelerateInterpolator());
                 _valueAnimator.SetDuration(200);
 
                 _valueAnimator.Update += (o, eventArgs) =>
@@ -100,9 +131,14 @@ namespace CalcApp
             GetFunctions().ForEach(x => x.Click += (sender, args) =>
             {
                 _primaryDisplay.Text += x.Text;
-                if(x.Text == ")")
+                if (x.Text == ")")
                     Calculate();
             });
+        }
+
+        private double Hypot(double leftOp, double rightOp)
+        {
+            return Sqrt(Pow(leftOp, 2) + Pow(rightOp, 2));
         }
 
         private void Calculate()
@@ -125,7 +161,7 @@ namespace CalcApp
             {
                 _secondaryDisplay.Text = "Infinity";
             }
-            catch(System.Exception e)
+            catch (System.Exception e)
             {
 #if DEBUG
                 Console.WriteLine(e);
