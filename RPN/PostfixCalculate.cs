@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace RPN
@@ -19,6 +20,9 @@ namespace RPN
 
         public decimal Calculate(string postfixString)
         {
+            _stack.Clear();
+            _queue.Clear();
+
             foreach (var entry in postfixString.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries))
                 _queue.Enqueue(entry);
 
@@ -31,7 +35,7 @@ namespace RPN
 
                 if (!IsOperator(entry))
                 {
-                    _stack.Push(decimal.Parse(entry));
+                    _stack.Push(decimal.Parse(entry, new NumberFormatInfo{ NumberDecimalSeparator = "." }));
                 }
 
                 else if (IsUnaryOperator(entry))
@@ -71,7 +75,7 @@ namespace RPN
             if (_stack.Count > 1)
                 throw new Exception("More than one result on the stack.");
             if (_stack.Count < 1)
-                throw new Exception("No results on the stack.");
+                throw new KeyNotFoundException("No results on the stack.");
 
             return _stack.Pop();
         }
