@@ -17,6 +17,7 @@ namespace CalcApp
     public class MainActivity : Activity
     {
         private HorizontalScrollView _hsv;
+        private HorizontalScrollView _hsvSec;
         private TextView _primaryDisplay;
         private TextView _secondaryDisplay;
         private string _expr;
@@ -32,6 +33,7 @@ namespace CalcApp
 
             _calc = new Calculator();
             _hsv = FindViewById<HorizontalScrollView>(Resource.Id.display_hsv);
+            _hsvSec = FindViewById<HorizontalScrollView>(Resource.Id.display_hsv_sec);
             _primaryDisplay = FindViewById<TextView>(Resource.Id.display_primary);
             _secondaryDisplay = FindViewById<TextView>(Resource.Id.display_secondary);
             _displayOverlay = FindViewById<LinearLayout>(Resource.Id.display_overlay);
@@ -44,34 +46,12 @@ namespace CalcApp
                 _hsv.FullScroll(FocusSearchDirection.Right);
             };
 
-            del.LongClick += (sender, args) =>
+            _hsvSec.ViewTreeObserver.GlobalLayout += (sender, args) =>
             {
-                if (_primaryDisplay.Text.Length != 0)
-                {
-                    var circle = ViewAnimationUtils.CreateCircularReveal(
-                        _displayOverlay,
-                        _displayOverlay.MeasuredWidth / 2,
-                        _displayOverlay.MeasuredHeight,
-                         0,
-                        (int)Hypot(_displayOverlay.Width, _displayOverlay.Height));
-
-                    circle.SetDuration(300);
-
-                    circle.AnimationEnd += (o, eventArgs) =>
-                    {
-                        _primaryDisplay.Text = string.Empty;
-                        _secondaryDisplay.Text = string.Empty;
-                    };
-
-                    var fade = ObjectAnimator.OfFloat(_displayOverlay, "alpha", 0f);
-                    fade.SetInterpolator(new DecelerateInterpolator());
-                    fade.SetDuration(200);
-                    var animatorSet = new AnimatorSet();
-                    animatorSet.PlaySequentially(circle, fade);
-                    _displayOverlay.Alpha = 1;
-                    animatorSet.Start();
-                }
+                _hsvSec.FullScroll(FocusSearchDirection.Right);
             };
+
+            del.LongClick += (sender, args) => CircleAnimation();
 
             eq.Click += (sender, args) =>
             {
@@ -119,11 +99,13 @@ namespace CalcApp
 
             GetOperators().ForEach(x => x.Click += (sender, args) =>
             {
+                if (x.Text == "." && _primaryDisplay.Text.Contains(".")) return;
                 if (_primaryDisplay.Text.Length != 0)
-                    if (IsOperator(_primaryDisplay.Text[_primaryDisplay.Text.Length - 1]))
+                    if (IsOperator(_primaryDisplay.Text[_primaryDisplay.Text.Length - 1]) && x.Text != "−")
                         _primaryDisplay.Text = _primaryDisplay.Text.Remove(_primaryDisplay.Text.Length - 1) + x.Text;
-                    else
+                    else if(_primaryDisplay.Text[_primaryDisplay.Text.Length - 1] != '−')
                         _primaryDisplay.Text += x.Text;
+                        else return;
                 else
                     _primaryDisplay.Text = x.Text;
             });
@@ -136,7 +118,36 @@ namespace CalcApp
             });
         }
 
-        private double Hypot(double leftOp, double rightOp)
+        private void CircleAnimation()
+        {
+            if (_primaryDisplay.Text.Length != 0)
+            {
+                var circle = ViewAnimationUtils.CreateCircularReveal(
+                    _displayOverlay,
+                    _displayOverlay.MeasuredWidth / 2,
+                    _displayOverlay.MeasuredHeight,
+                     0,
+                    (int)Hypot(_displayOverlay.Width, _displayOverlay.Height));
+
+                circle.SetDuration(300);
+
+                circle.AnimationEnd += (o, eventArgs) =>
+                {
+                    _primaryDisplay.Text = string.Empty;
+                    _secondaryDisplay.Text = string.Empty;
+                };
+
+                var fade = ObjectAnimator.OfFloat(_displayOverlay, "alpha", 0f);
+                fade.SetInterpolator(new DecelerateInterpolator());
+                fade.SetDuration(200);
+                var animatorSet = new AnimatorSet();
+                animatorSet.PlaySequentially(circle, fade);
+                _displayOverlay.Alpha = 1;
+                animatorSet.Start();
+            }
+        }
+
+        private static double Hypot(double leftOp, double rightOp)
         {
             return Sqrt(Pow(leftOp, 2) + Pow(rightOp, 2));
         }
